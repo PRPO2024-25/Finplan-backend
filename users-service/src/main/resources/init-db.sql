@@ -1,0 +1,1 @@
+INSERT INTO users (username, firstname, lastname, email, password) VALUES ('john_doe', 'John', 'Doe', 'john@example.com', 'password123'),('jane_doe', 'Jane', 'Doe', 'jane@example.com', 'password123'),('alice_smith', 'Alice', 'Smith', 'alice@example.com', 'password123'),('bob_wilson', 'Bob', 'Wilson', 'bob@example.com', 'password123');

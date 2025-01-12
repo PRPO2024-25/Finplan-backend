@@ -1,0 +1,46 @@
+kumuluzee:
+  name: kumuluzee-samples-jpa
+  env:
+    name: dev
+  version: 1.0.0
+  server:
+    base-url: http://localhost:8082
+    http:
+      port: 8082
+  datasources:
+    - jndi-name: jdbc/TransactionsDB
+      connection-url: jdbc:postgresql://localhost:5432/transactions
+     #connection-url: jdbc:postgresql://finance-db:5432/finance
+      username: postgres
+      password: postgres
+      max-pool-size: 20
+  rest-client:
+    registrations:
+      - class: si.fri.prpo.finance.clients.PortfolioServiceAPI
+        url: http://localhost:8080
+
+  swagger:
+    enabled: true
+    ui:
+      enabled: true
+    spec:
+      enabled: true
+    base-url: http://localhost:8082
+    title: transactions-service
+    version: 1.0.0
+
+  discovery:
+    etcd:
+      hosts: http://localhost:2379
+
+  cors-filter:
+    annotations:
+      enabled: true
+    servlet:
+      allow-origin: "http://localhost:3000"
+      allow-subdomains: true
+      supported-methods: "GET, POST, PUT, DELETE, OPTIONS, HEAD, TRACE"
+      supported-headers: "Content-Type, Authorization"
+      exposed-headers: "Content-Type, Authorization"
+      max-age: 600
+      allow-credentials: true

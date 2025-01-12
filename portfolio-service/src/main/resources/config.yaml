@@ -1,0 +1,58 @@
+kumuluzee:
+  name: kumuluzee-samples-jpa
+  discovery:
+    etcd:
+      hosts: http://localhost:2379
+  server:
+    http:
+      port: 8080
+  cors-filter:
+    annotations:
+      enabled: true
+    servlet:
+      allow-origin: "http://localhost:3000"
+      allow-subdomains: true
+      supported-methods: "GET, POST, PUT, DELETE, OPTIONS, HEAD, TRACE"
+      supported-headers: "Content-Type, Authorization"
+      exposed-headers: "Content-Type, Authorization"
+      max-age: 600
+      allow-credentials: true
+  datasources:
+    - jndi-name: jdbc/PortfolioDB
+      connection-url: jdbc:postgresql://localhost:5432/portfolios
+      #connection-url: jdbc:postgresql://finance-db:5432/finance
+      username: postgres
+      password: postgres
+      pool:
+        max-size: 2
+  rest-client:
+    registrations:
+      - class: si.fri.prpo.finance.clients.UserClient
+        url: http://localhost:8081
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/PortfolioDB
+    logs:
+      enabled: true
+      level: INFO
+      period-s: 30
+
+
+service-urls:
+    users-service: http://localhost:8081
+    
+alphavantage:
+  base-url: "https://www.alphavantage.co/query"
+  api-key: "XZDZ0G6V612UVJLQ"
+
+  swagger:
+    enabled: true
+    ui:
+      enabled: true
+    spec:
+      enabled: true
+    base-url: http://localhost:8080
+    title: Portfolio Service API
+    version: 1.0.0

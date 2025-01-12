@@ -1,0 +1,40 @@
+kumuluzee:
+  name: kumuluzee-samples-jpa
+  discovery:
+    etcd:
+      hosts: http://localhost:2379
+  server:
+    http:
+      port: 8080
+  datasources:
+    - jndi-name: jdbc/PortfolioDB
+      connection-url: jdbc:postgresql://localhost:5432/portfolios
+      username: postgres
+      password: postgres
+      pool:
+        max-size: 2
+  rest-client:
+    registrations:
+      - class: si.fri.prpo.finance.clients.UserClient
+        url: http://localhost:8081
+      - class: si.fri.prpo.finance.clients.TransactionClient
+        url: http://localhost:8082
+        config-key: transaction-api
+
+service-urls:
+    users-service: http://localhost:8081
+    transaction-service: http://localhost:8082
+    
+alphavantage:
+  base-url: "https://www.alphavantage.co/query"
+  api-key: "XZDZ0G6V612UVJLQ"
+
+  swagger:
+    enabled: true
+    ui:
+      enabled: true
+    spec:
+      enabled: true
+    base-url: http://localhost:8080
+    title: Portfolio Service API
+    version: 1.0.0
